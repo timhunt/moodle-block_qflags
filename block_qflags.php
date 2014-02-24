@@ -60,4 +60,8 @@ class block_qflags extends block_base {
 
         return $this->content;
     }
+
+    function applicable_formats() {
+        return array('course' => true, 'mod-quiz' => true);
+    }
 }
