@@ -25,6 +25,5 @@
 $string['attemptatquiz'] = '{$a->name}, attempt {$a->attempt}, page {$a->page}';
 $string['maxflags'] = 'Max flags to show';
 $string['maxflags_desc'] = 'This limits the most flags that will be shown in the flagged questions block.';
-$string['noflaggedquestions'] = 'No flagged questions in this course';
 $string['pluginname'] = 'Flagged questions';
 $string['qflags:addinstance'] = 'Add a new flagged questions block';

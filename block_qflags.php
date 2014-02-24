@@ -32,7 +32,7 @@ defined('MOODLE_INTERNAL') || die;
  * @copyright 2014 Tim Hunt
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_qflags extends block_base {
+class block_qflags extends block_list {
     function init() {
         $this->title = get_string('pluginname', 'block_qflags');
     }
@@ -42,14 +42,15 @@ class block_qflags extends block_base {
     }
 
     function get_content() {
-        global $USER, $CFG, $DB;
+        global $USER, $CFG, $DB, $OUTPUT;
 
         if ($this->content !== NULL) {
             return $this->content;
         }
 
         $this->content = new stdClass;
-        $this->content->text = '';
+        $this->content->items = array();
+        $this->content->icons = array();
         $this->content->footer = '';
 
         if (empty($this->instance)) {
@@ -73,11 +74,9 @@ class block_qflags extends block_base {
                 0, $CFG->block_qflags_maxflags);
 
         if (empty($flags)) {
-            $this->content->text = get_string('noflaggedquestions', 'block_qflags');
             return $this->content;
         }
 
-        $links = array();
         foreach ($flags as $flag) {
             $layout = explode(',', $flag->layout);
             $flag->page = 1;
@@ -99,13 +98,13 @@ class block_qflags extends block_base {
             }
 
             $flag->name = format_string($flag->name);
-            $links[] = html_writer::link(
+            $this->content->items[] = html_writer::link(
                     new moodle_url('/mod/quiz/attempt.php',
                         array('attempt' => $flag->attemptid, 'page' => $flag->page - 1),
                         $anchor),
                     get_string('attemptatquiz', 'block_qflags', $flag));
+            $this->content->icons[] = $OUTPUT->pix_icon('i/flagged', 'moodle');
         }
-        $this->content->text = '<ul><li>' . implode('</li><li>', $links) . '</li></ul>';
 
         return $this->content;
     }
