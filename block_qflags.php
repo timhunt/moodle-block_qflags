@@ -38,7 +38,7 @@ class block_qflags extends block_base {
     }
 
     function has_config() {
-        return true;
+        return false;
     }
 
     function get_content() {
@@ -56,10 +56,8 @@ class block_qflags extends block_base {
             return $this->content;
         }
 
-        // TODO
+        $this->content->text = 'Hello world!';
 
         return $this->content;
     }
 }
-
-
