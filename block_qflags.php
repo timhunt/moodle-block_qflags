@@ -56,17 +56,32 @@ class block_qflags extends block_base {
             return $this->content;
         }
 
-        $quizzes = $DB->get_records('quiz', array('course' => $this->page->course->id), 'name');
-        if (empty($quizzes)) {
-            $this->content->text = get_string('noquizzes', 'block_qflags');
+        $flags = $DB->get_records_sql("
+                SELECT quiz.name, qa.slot, quiza.id AS attemptid, quiza.attempt, quiza.layout
+
+                  FROM {question_attempts} qa
+                  JOIN {quiz_attempts}     quiza ON quiza.uniqueid = qa.questionusageid
+                  JOIN {quiz}              quiz  ON quiz.id = quiza.quiz
+
+                 WHERE qa.flagged   = 1
+                   AND quiz.course  = :courseid
+                   AND quiza.userid = :userid
+
+              ORDER BY quiz.name, qa.slot
+
+                ", array('courseid' => $this->page->course->id, 'userid' => $USER->id));
+
+        if (empty($flags)) {
+            $this->content->text = get_string('noflaggedquestions', 'block_qflags');
             return $this->content;
         }
 
         $links = array();
-        foreach ($quizzes as $quiz) {
+        foreach ($flags as $flag) {
+            $flag->name = format_string($flag->name);
             $links[] = html_writer::link(
-                    new moodle_url('/mod/quiz/view.php', array('q' => $quiz->id)),
-                    format_string($quiz->name));
+                    new moodle_url('/mod/quiz/attempt.php', array('attempt' => $flag->attemptid)),
+                    get_string('attemptatquiz', 'block_qflags', $flag));
         }
         $this->content->text = '<ul><li>' . implode('</li><li>', $links) . '</li></ul>';
 
