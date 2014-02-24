@@ -34,15 +34,15 @@ defined('MOODLE_INTERNAL') || die;
  */
 class block_qflags extends block_base {
     function init() {
-        $this->title = get_string('pluginname','block_qflags');
+        $this->title = get_string('pluginname', 'block_qflags');
     }
 
     function has_config() {
-        return false;
+        return true;
     }
 
     function get_content() {
-        global $USER, $DB;
+        global $USER, $CFG, $DB;
 
         if ($this->content !== NULL) {
             return $this->content;
@@ -69,7 +69,8 @@ class block_qflags extends block_base {
 
               ORDER BY quiz.name, qa.slot
 
-                ", array('courseid' => $this->page->course->id, 'userid' => $USER->id));
+                ", array('courseid' => $this->page->course->id, 'userid' => $USER->id),
+                0, $CFG->block_qflags_maxflags);
 
         if (empty($flags)) {
             $this->content->text = get_string('noflaggedquestions', 'block_qflags');

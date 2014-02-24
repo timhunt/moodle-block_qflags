@@ -25,6 +25,6 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    $settings->add(new admin_setting_configtext('block_qflags_timetosee', get_string('timetosee', 'block_qflags'),
-                   get_string('configtimetosee', 'block_qflags'), 5, PARAM_INT));
+    $settings->add(new admin_setting_configtext('block_qflags_maxflags', get_string('maxflags', 'block_qflags'),
+                   get_string('maxflags_desc', 'block_qflags'), 5, PARAM_INT));
 }
