@@ -22,7 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['attemptatquiz'] = 'Attempt {$a->attempt} at {$a->name}';
+$string['attemptatquiz'] = '{$a->name}, attempt {$a->attempt}, page {$a->page}';
 $string['noflaggedquestions'] = 'No flagged questions in this course';
 $string['pluginname'] = 'Flagged questions';
 $string['qflags:addinstance'] = 'Add a new flagged questions block';

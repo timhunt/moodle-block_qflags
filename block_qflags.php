@@ -57,7 +57,7 @@ class block_qflags extends block_base {
         }
 
         $flags = $DB->get_records_sql("
-                SELECT quiz.name, qa.slot, quiza.id AS attemptid, quiza.attempt, quiza.layout
+                SELECT qa.id, quiz.name, quiza.id AS attemptid, quiza.attempt, qa.slot, quiza.layout
 
                   FROM {question_attempts} qa
                   JOIN {quiz_attempts}     quiza ON quiza.uniqueid = qa.questionusageid
@@ -78,9 +78,30 @@ class block_qflags extends block_base {
 
         $links = array();
         foreach ($flags as $flag) {
+            $layout = explode(',', $flag->layout);
+            $flag->page = 1;
+            $firstonpage = true;
+            foreach ($layout as $item) {
+                if ($item == 0) {
+                    $flag->page += 1;
+                    $firstonpage = true;
+                } else if ($item == $flag->slot) {
+                    break;
+                } else {
+                    $firstonpage = false;
+                }
+            }
+
+            $anchor = null;
+            if (!$firstonpage) {
+                $anchor = 'q' . $flag->slot;
+            }
+
             $flag->name = format_string($flag->name);
             $links[] = html_writer::link(
-                    new moodle_url('/mod/quiz/attempt.php', array('attempt' => $flag->attemptid)),
+                    new moodle_url('/mod/quiz/attempt.php',
+                        array('attempt' => $flag->attemptid, 'page' => $flag->page - 1),
+                        $anchor),
                     get_string('attemptatquiz', 'block_qflags', $flag));
         }
         $this->content->text = '<ul><li>' . implode('</li><li>', $links) . '</li></ul>';
