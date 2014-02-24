@@ -42,7 +42,7 @@ class block_qflags extends block_base {
     }
 
     function get_content() {
-        global $USER, $CFG, $DB, $OUTPUT;
+        global $USER, $DB;
 
         if ($this->content !== NULL) {
             return $this->content;
@@ -56,7 +56,19 @@ class block_qflags extends block_base {
             return $this->content;
         }
 
-        $this->content->text = 'Hello world!';
+        $quizzes = $DB->get_records('quiz', array('course' => $this->page->course->id), 'name');
+        if (empty($quizzes)) {
+            $this->content->text = get_string('noquizzes', 'block_qflags');
+            return $this->content;
+        }
+
+        $links = array();
+        foreach ($quizzes as $quiz) {
+            $links[] = html_writer::link(
+                    new moodle_url('/mod/quiz/view.php', array('q' => $quiz->id)),
+                    format_string($quiz->name));
+        }
+        $this->content->text = '<ul><li>' . implode('</li><li>', $links) . '</li></ul>';
 
         return $this->content;
     }
