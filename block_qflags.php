@@ -15,21 +15,26 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Online users block.
+ * Flagged questions block.
  *
- * @package    block_online_users
- * @copyright  1999 onwards Martin Dougiamas (http://dougiamas.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   block_qflags
+ * @copyright 2014 Tim Hunt
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 /**
- * This block needs to be reworked.
- * The new roles system does away with the concepts of rigid student and
- * teacher roles.
+ * Flagged questions block.
+ *
+ * Show all questions that have been flagged within a course.
+ *
+ * @copyright 2014 Tim Hunt
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_online_users extends block_base {
+class block_qflags extends block_base {
     function init() {
-        $this->title = get_string('pluginname','block_online_users');
+        $this->title = get_string('pluginname','block_qflags');
     }
 
     function has_config() {

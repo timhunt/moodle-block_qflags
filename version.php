@@ -15,15 +15,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Version details for the flagged questions block.
  *
- * @package    block_online_users
- * @copyright  1999 onwards Martin Dougiamas (http://dougiamas.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_qflags
+ * @copyright 2014 Tim Hunt
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2013110500;        // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2013110500;        // Requires this Moodle version
-$plugin->component = 'block_online_users'; // Full name of the plugin (used for diagnostics)
+$plugin->version   = 2014022400;
+$plugin->requires  = 2013110500;
+$plugin->cron      = 0;
+$plugin->component = 'block_qflags';
+$plugin->maturity  = MATURITY_ALPHA;
+$plugin->release   = '0.1 work in progress';
+
+$plugin->dependencies = array(
+                'mod_quiz' => ANY_VERSION,
+);

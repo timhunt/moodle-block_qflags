@@ -15,25 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Online users block caps.
+ * Flagged questions block capabilities.
  *
- * @package    block_online_users
- * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_qflags
+ * @copyright 2014 Tim Hunt
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
 
-    'block/online_users:addinstance' => array(
-        'riskbitmask' => RISK_SPAM | RISK_XSS,
-
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
+    // Can the user add an instance of this block to the course page?
+    'block/qflags:addinstance' => array(
+        'captype'              => 'write',
+        'contextlevel'         => CONTEXT_BLOCK,
+        'archetypes'           => array(
             'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
+            'manager'        => CAP_ALLOW
         ),
 
         'clonepermissionsfrom' => 'moodle/site:manageblocks'

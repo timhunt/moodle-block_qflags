@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,17 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_online_users', language 'en', branch 'MOODLE_20_STABLE'
+ * Strings for component 'block_qflags'.
  *
- * @package   block_online_users
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @package   block_qflags
+ * @copyright 2014 Tim Hunt
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['configtimetosee'] = 'Number of minutes determining the period of inactivity after which a user is no longer considered to be online.';
-$string['online_users:addinstance'] = 'Add a new online users block';
-$string['online_users:myaddinstance'] = 'Add a new online users block to My home';
-$string['online_users:viewlist'] = 'View list of online users';
-$string['periodnminutes'] = 'last {$a} minutes';
-$string['pluginname'] = 'Online users';
-$string['timetosee'] = 'Remove after inactivity (minutes)';
+$string['qflags:addinstance'] = 'Add a new flagged questions block';
+$string['pluginname'] = 'Flagged questions';
